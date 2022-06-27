@@ -1,29 +1,34 @@
 import "./App.css";
-import { useEffect } from "react";
-import { axiosClient } from "./Axios/axios";
 import Login from "./Modules/Users/Components/Login";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
+import Home from "./Screens/Home/Home";
+import About from "./Screens/About/About";
+import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes";
 
 function App() {
-  useEffect(() => {
-    let cancel = new AbortController();
-    axiosClient
-      .get("/products", {
-        signal: cancel.signal,
-      })
-      .then((res) => {
-        console.log("i am rendered", res.data);
-      })
-      .catch((e) => console.log(e));
-    return () => {
-      cancel.abort();
-    };
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>
+        <Route exact path={"/"} element={<Navigate to="/home" />} />
+        <Route
+          exact
+          path={"/home"}
+          element={
+            <ProtectedRoutes>
+              <Home />
+            </ProtectedRoutes>
+          }
+        />
         <Route exact path={"/login"} element={<Login />} />
+        <Route
+          exact
+          path={"/about"}
+          element={
+            <ProtectedRoutes>
+              <About />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

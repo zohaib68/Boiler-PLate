@@ -1,6 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { logInThunk } from "../Redux/Actions/Users.actions";
 import "./Login.css";
 export default function Login() {
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const [formValues, setformValues] = React.useState({
     name: "",
     password: "",
@@ -23,7 +28,7 @@ export default function Login() {
     }));
   };
   const onSubmit = () => {
-    alert("done");
+    dispatch(logInThunk(true, Navigate));
   };
   const validate = (id, field) => {
     let value = document.getElementById(id).value;
