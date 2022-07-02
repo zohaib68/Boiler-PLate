@@ -3,14 +3,10 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 export default function Layout({ children }) {
   return (
-    <>
+    <div style={{ height: "100vh", backgroundColor: "#dee5ebf5" }}>
       <Navbar />
-      <div
-        style={{ height: "81vh", backgroundColor: "#dee5ebf5", padding: "2%" }}
-      >
-        {children}
-      </div>
+      <div style={{ height: "86vh" }}>{children}</div>
       <Footer />
-    </>
+    </div>
   );
 }
